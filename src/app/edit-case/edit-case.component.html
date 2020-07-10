@@ -1,0 +1,34 @@
+<div>
+  <form>
+        <div class="form-group">
+          <label for="inputName">Name</label>
+          <input type="text" class="form-control" name="Name" id="inputName"  placeholder="Enter Name">
+        </div>
+        <div class="form-group">
+          <label for="inputAddress">Address</label>
+          <input type="text" class="form-control" name="Address" id="inputAddress" placeholder="Enter Address">
+        </div>
+        <div class="form-group">
+            <label for="inputCity">City</label>
+            <select class="form-control" id="inputCity">
+              <option *ngFor="let city of cities" selected=patientModel.City [ngValue]="city.id">{{city.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+          <label for="inputAddress2">Age</label>
+          <input type="text" class="form-control" id="inputAge" name="Age" placeholder="Enter Age">
+        </div>
+        <div class="form-group">
+          <label for="inputAddress2">Number of Members in Family</label>
+          <input type="text" class="form-control" id="inputNum_Of_Fam" name="Num_Of_Fam" placeholder="Enter Number of Members in Family">
+        </div>
+        <div class="form-group">
+          <label for="inputAddress2">Status</label>
+          <select class="form-control" id="inputStatus">
+            <option *ngFor="let stat of status" [ngValue]="stat.id">{{stat.name}}</option>
+          </select>
+        </div>
+
+      <button type="submit" class="btn btn-primary" (click)="submit()">Save</button>
+    </form>
+</div>

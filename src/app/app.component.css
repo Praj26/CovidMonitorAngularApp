@@ -1,0 +1,11 @@
+#deathNum{
+    color:#ff8a90;    
+}
+#recoveryNum{
+    color:#5fbf70
+}
+
+a.formLink:hover{
+    color: #fff;
+    text-decoration: underline;
+}
