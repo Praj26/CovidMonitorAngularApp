@@ -4,24 +4,26 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th scope="col" style="display:none;"></th>
+              <th scope="col" class="d-none"></th>
               <th scope="col">Name</th>
               <th scope="col">Address</th>
               <th scope="col">City</th>
               <th scope="col">Age</th>
               <th scope="col">Status</th>
+              <th scope="col">Family Members</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let patient of this.patientList">
-              <td style="display:none;"><input #id class="hidden" value={{patient.Id}}></td>
+              <td class="d-none"><input #id value={{patient.Id}}></td>
               <td>{{patient.Name}}</td>
               <td>{{patient.Address}}</td>
               <td>{{patient.CityLabel}}</td>
               <td>{{patient.Age}}</td>
               <td>{{patient.StatusLabel}}</td>
-              <td>
+              <td style="text-align: center;">{{patient.Num_Of_Fam}}</td>
+              <td id="btnRow">
                 <button type="button" class="btn btn-success" routerLink="../edit/{{id.value}}"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-danger" (click)="deleteRecord(id.value)"><i class="far fa-trash-alt"></i></button>
               </td>

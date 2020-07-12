@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CovidService } from '../covid.service'
 import { Data } from '../data';
 import{ Router } from '@angular/router'
+import { ValuesService } from '../values.service';
 @Component({
   selector: 'app-patient-display',
   templateUrl: './patient-display.component.html',
@@ -14,7 +15,7 @@ export class PatientDisplayComponent implements OnInit {
   status= [];
   public data = new Data()
      
-  constructor(public covidService: CovidService, public router : Router) {
+  constructor(private covidService: CovidService, private router : Router, private valuesService : ValuesService) {
     this.cities = this.data.getAllCities();
     this.status = this.data.getAllStatus();
    }
@@ -34,7 +35,7 @@ export class PatientDisplayComponent implements OnInit {
 
   deleteRecord(recordID:Number){
     this.covidService.deletePatient(recordID).subscribe((data : any[])=>{
-      this.router.navigate([' ']);
+      this.valuesService.updataTotalCaseNumberInfo();
     })
   }
 

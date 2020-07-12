@@ -10,6 +10,7 @@ import { AgeDisplayComponent } from './age-display/age-display.component';
 import { MonthDisplayComponent } from './month-display/month-display.component';
 import { PatientDisplayComponent } from './patient-display/patient-display.component';
 import { LocationDisplayComponent } from './location-display/location-display.component';
+import { NumberonlyDirective } from './numberonly.directive';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { LocationDisplayComponent } from './location-display/location-display.co
     MonthDisplayComponent,
     PatientDisplayComponent,
     LocationDisplayComponent,
+    NumberonlyDirective,
   ],
   imports: [
     BrowserModule,

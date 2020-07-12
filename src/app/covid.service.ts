@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,16 +16,9 @@ export class CovidService {
   public getPatient(id : Number){
     return this.httpClient.get(this.Rest_Server_API + "api/patient/" + id);
   }
-  /* Hardcorded Values */
-  public getLocationGraphData(){
-    var locationGraph = [
-      {city:'C1',caseCount:'60'},
-      {city:'C2',caseCount:'10'},
-      {city:'C3',caseCount:'6'},
-      {city:'C4',caseCount:'1'},
 
-    ]
-    return locationGraph;
+  public getLocationGraphData(){
+    return this.httpClient.get(this.Rest_Server_API + "api/locationgraph") 
   }
 
   public getAgeGraphData(){
@@ -34,40 +28,42 @@ export class CovidService {
       {ageGroup:'30-45',caseCount:'64'},
       {ageGroup:'45-60',caseCount:'1'},
     ]
-    return ageGraph;
+   // return ageGraph
+    return this.httpClient.get(this.Rest_Server_API + "api/agegraph")  
   }
 
   public getMonthGraphData(){
-    var monthGraph = [
-      {month:'M1',caseCount:'60'},
-      {month:'M2',caseCount:'10'},
-      {month:'M3',caseCount:'6'},
-      {month:'M7',caseCount:'6'},
-      {month:'M6',caseCount:'6'},
-      {month:'M4',caseCount:'1'},
-    ]
-    return monthGraph;
+    return this.httpClient.get(this.Rest_Server_API + "api/monthgraph")  
   }
 
   public deletePatient(id : Number){
     return this.httpClient.delete(this.Rest_Server_API + "api/patient/" + id);
   }
 
-  public SavePatient(patientModel,status,city,month){   
+  public SavePatient(patientModel : any,month : string){   
     const requestData = {
-      Name: patientModel.Name,
-      Address: patientModel.Address,
-      Age: patientModel.Age,
-      City: city,
-      Status: status,
-      Num_Of_Fam: patientModel.Num_Of_Fam,
+      Name: patientModel.name,
+      Address: patientModel.address,
+      Age: patientModel.age,
+      City: patientModel.city,
+      Status: patientModel.status,
+      Num_Of_Fam: patientModel.num_of_fam,
       Month: month
    };
-   console.log(requestData);
     return this.httpClient.post(this.Rest_Server_API + "api/patient/" , requestData);
   }
 
-  public EditPatient(patientModel, id : Number){
-    return this.httpClient.put(this.Rest_Server_API + "api/patient/" + id, patientModel);
+  public EditPatient(patientModel, id : Number,month){
+    const requestData = {
+      Name: patientModel.name,
+      Address: patientModel.address,
+      Age: patientModel.age,
+      City: patientModel.city,
+      Status: patientModel.status,
+      Num_Of_Fam: patientModel.num_of_fam,
+      Month: month
+    };
+    console.log(requestData)
+    return this.httpClient.put(this.Rest_Server_API + "api/patient/" + id, requestData);
   }
 }

@@ -27,16 +27,16 @@ export class MonthDisplayComponent implements OnInit {
   public options: any = {
     chart: {
       type: 'column',
-      height: 450
+      height: this.data.getGraphHeight()
     },
     title: {
-      text: 'Month'
+      text: 'Number of Cases by Month'
     },
     credits: {
       enabled: false
     },
     xAxis: {
-      categories: this.xAxis,
+      categories: this.data.getAllMonthsNames(),
       title: {
         text: 'Months'
       }
@@ -49,22 +49,32 @@ export class MonthDisplayComponent implements OnInit {
     series: [
       {
         data: this.series,
-        color: '#26334f'
+        color: '#26334f',
+        showInLegend: false,
+        dataLabels: {
+          enabled: true,
+          align: 'center',
+          color: '#000',
+        },
       }
     ]
   }
   constructor(public covidService : CovidService) {
     this.month = this.data.getAllMonths();
-    this.monthGraphData = this.covidService.getMonthGraphData();
-    for(let i= 0 ; i<this.monthGraphData.length;i++){
-      let monthLabel = this.month.find(x => x.id === this.monthGraphData[i].month.trim());
-      this.xAxis[i] = monthLabel.name;
-      this.series[i] = parseInt(this.monthGraphData[i].caseCount);
-    }
+    this.covidService.getMonthGraphData().subscribe((data) => {
+      if(data){
+        this.monthGraphData = data;
+        for(let i= 0 ; i < this.month.length; i++){
+          let monthLabel = this.monthGraphData.find(x => x.month.trim() === this.month[i].id.trim());
+          if(monthLabel)
+            this.series[i] = parseInt(monthLabel.caseCount);
+          else 
+            this.series[i] = '';
+        }
+        Highcharts.chart('container', this.options);
+      }
+    });
    }
 
-  ngOnInit(): void {
-    Highcharts.chart('container', this.options);
-  }
-
+  ngOnInit(): void {}
 }

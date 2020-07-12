@@ -27,10 +27,10 @@ export class LocationDisplayComponent implements OnInit {
   public options: any = {
     chart: {
       type: 'column',
-      height: 450
+      height: this.data.getGraphHeight()
     },
     title: {
-      text: ''
+      text: 'Number of cases by Location'
     },
     credits: {
       enabled: false
@@ -49,22 +49,30 @@ export class LocationDisplayComponent implements OnInit {
     series: [
       {
         data: this.series,
-        color: '#26334f'
+        color: '#26334f',
+        showInLegend: false,
+        dataLabels: {
+          enabled: true,
+          align: 'center',
+          color: '#000',
+        },
       },
     ]
   }
   constructor(public covidService : CovidService) { 
     this.cities = this.data.getAllCities();
-    this.locationGraphData = this.covidService.getLocationGraphData();
-    for(let i= 0 ; i<this.locationGraphData.length;i++){
-      let cityLabel = this.cities.find(x => x.id === this.locationGraphData[i].city.trim());
-      this.xAxis[i] = cityLabel.name;
-      this.series[i] = parseInt(this.locationGraphData[i].caseCount);
-    }
+    this.covidService.getLocationGraphData().subscribe((data) => {
+      if(data){
+        this.locationGraphData = data
+        for(let i= 0 ; i<this.locationGraphData.length;i++){
+          let cityLabel = this.cities.find(x => x.id === this.locationGraphData[i].city.trim());
+          this.xAxis[i] = cityLabel.name;
+          this.series[i] = parseInt(this.locationGraphData[i].caseCount);
+        }
+        Highcharts.chart('container', this.options);
+      }
+    });
   }
-
-  ngOnInit(): void {
-    Highcharts.chart('container', this.options);
-  }
+  ngOnInit(): void {}
 
 }

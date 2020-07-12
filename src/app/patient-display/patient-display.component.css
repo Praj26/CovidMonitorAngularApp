@@ -1,3 +1,21 @@
+.table {
+    color:#fff;
+}
 .table-image > td , th {
-      vertical-align: middle;
-  }
+    vertical-align: middle;
+}
+.table thead th , .table tbody td {
+    vertical-align: middle;
+}
+#btnRow{
+    padding: 0 6px;
+}
+#btnRow button{
+    padding: 0 6px;
+}
+#btnRow button i{
+    font-size: 12px;
+}
+.btn-danger {
+    float: right;
+}
