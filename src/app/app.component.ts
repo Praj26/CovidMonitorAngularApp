@@ -23,9 +23,9 @@ export class AppComponent {
       this.total_number_cases = this.patientList.length;
       console.log("total_number_cases")
       for(let index=0;index<this.patientList.length;index++){
-        if(this.patientList[index].Status == 5)
+        if(this.patientList[index].status == 5)
           this.total_number_deceased++;
-          if(this.patientList[index].Status == 4)
+          if(this.patientList[index].status == 4)
            this.total_number_recovered++;
       }
      
